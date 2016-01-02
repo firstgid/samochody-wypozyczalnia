@@ -1,0 +1,7 @@
+<%= render :partial => 'layouts/flash' %>
+
+<ul>
+<% @cars.each do |c| %>
+  <li><%= link_to c.nazwa, c %></li>
+<% end %>
+</ul>

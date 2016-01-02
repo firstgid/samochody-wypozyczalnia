@@ -1,0 +1,12 @@
+<%= form_for @car do |c| %>
+  <%= c.label :nazwa %>
+  <%= c.text_field :nazwa %>
+
+  <%= c.label :opis %>
+  <%= c.text_area :opis %>
+
+  <%= c.label :klasa %>
+  <%= c.text_field :klasa %>
+
+  <%= c.submit 'edytuj' %>
+<% end %>

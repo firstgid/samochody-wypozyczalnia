@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Jura&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  <title><%= titles(yield(:title))%></title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+  <%= csrf_meta_tags %>
+</head>
+<body style="font-family: Jura, FreeSans, Arial, sans-serif;">
+
+<%= render "layouts/header" %>
+
+<section>
+<div class="container">
+  <%= yield %>
+  <%= debug(params) if Rails.env.development? %>
+</div>
+</section>
+
+</body>
+</html>
