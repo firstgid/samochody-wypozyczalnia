@@ -50,20 +50,33 @@ RSpec.feature "Termins", type: :feature do
       expect(current_url).to eq "http://www.example.com/termins"
 
       blank = "can't be blank"
-      #Capybara.exact = true
+      not_date = 'is not a date'
+
+      Capybara.exact = true
       expect(page.body).to have_content("Osoba #{blank}")
-      expect(page.body).to have_content("Data wyp #{blank}")
-      expect(page.body).to have_content("Data odd #{blank}")
+      expect(page.body).to have_content("Data wyp #{not_date}")
+      expect(page.body).to have_content("Data odd #{not_date}")
       expect(page.body).to_not have_content("Osoba test #{blank}")
       expect(current_url).to eq "http://www.example.com/termins"
 
       fill_in 'Osoba', :with => @termin[:osoba]
       click_button 'utwórz'
 
-      Capybara.exact = true
-      expect(page.body).to have_content("Data wyp #{blank}")
-      expect(page.body).to have_content("Data odd #{blank}")
+#     Capybara.exact = true
+      expect(page.body).to have_content("Data wyp #{not_date}")
+      expect(page.body).to have_content("Data odd #{not_date}")
       expect(page.body).to_not have_content("Osoba #{blank}")
+    end
+  end
+
+  describe "new_termin has" do
+    it "working link 'wróć'" do
+      visit car_url(@maluch)
+
+      click_link 'nowy termin'
+      expect(current_url).to eq(new_termin_url + '?car_id=1')
+      click_link 'wróć'
+      expect(current_url).to eq(car_url(@maluch))
     end
   end
 end

@@ -2,38 +2,23 @@ class Termin < ActiveRecord::Base
   belongs_to :car
   validates :car_id, :presence => true
   validates :osoba, :presence => true
-  validates :data_wyp, :presence => true
-  validates :data_odd, :presence => true
+  validates :data_wyp, :date => {after: Proc.new{Date.current - 1}}
+  validates :data_odd, :date => {after: Proc.new{Date.current}}
 
-  validate :today_and_before
   validate :prawidlowa_data
 
   before_create :set_cena
 
   #validate :data_wyp -> x, :data_odd -> y
-  # x.class is Date, x <= today, x > :data_odd
-  # y.class is Date, y < tomorrow
-  def today_and_before
-    if proper_date_format?
-      if self.data_wyp < Date.current
-        errors[:data_wyp] = 'musisz podac przynajmniej dzisiejsza date!'
-      elsif self.data_odd < Date.tomorrow
-        errors[:data_odd] = 'musisz podac przynajmniej jutrzejsza date!'
-      else
-        roznica = self.data_wyp <=> self.data_odd
-        if roznica != -1
-          errors[:data_wyp] = 'data wypozyczenia musi byc przed data oddania'
-        end
-      end
-    end
-  end
-
-  # validate :data_wyp, :data_odd
+  # x.class is Date, x > :data_odd
+  # y.class is Date
   def prawidlowa_data
-    if car_id_exist? && proper_date_format? #skip if car doesnt exist and dates are valid
+    if car_id_exist? && proper_date_format? #skip if car doesnt exist and dates are invalid
       #car = Car.find_by(:id => self.car_id.to_i)
       termins = Termin.where(:car_id => self.car_id)
-      if termins.count > 0  #skip if is not termins object
+      if (self.data_wyp <=> self.data_odd) != -1
+        errors[:data_wyp] = 'data wypozyczenia musi byc przed data oddania'
+      elsif termins.count > 0  #skip if is not termins object
         termins.order :data_wyp
         tfirst = termins.first[:data_wyp]
         tlast = termins.last[:data_odd]
@@ -60,7 +45,7 @@ class Termin < ActiveRecord::Base
               errors[:base] = msg
               break
             end
-          end
+          end#each
         end
       end
     end
