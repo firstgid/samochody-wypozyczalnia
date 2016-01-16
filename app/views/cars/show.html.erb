@@ -1,8 +1,8 @@
 <%= render :partial => 'layouts/flash' %>
 
-nazwa: <%= @car.nazwa %><br/>
-opis: <%= @car.opis %><br/>
-klasa: <%= @car.klasa %><br/>
+nazwa: <%= @car.name %><br/>
+opis: <%= @car.description %><br/>
+klasa: <%= @car.class %><br/>
 
 <%= link_to 'edytuj', edit_car_path(params[:id]) %>
 <%= link_to 'usuń', @car, method: :delete %>
@@ -11,19 +11,19 @@ klasa: <%= @car.klasa %><br/>
 <hr/>
 Wypożyczony:
 
-<table id="termin">
+<table id="term">
   <tr>
     <th>Data wypożyczenia</th>
     <th>Cena</th>
     <th>Osoba</th>
   </tr>
-  <% @termins.each do |t| %>
+  <% @terms.each do |t| %>
   <tr>
-    <td><%= t[:data_wyp] %> do <%= t[:data_odd] %></td>
-    <td><%= t[:cena] %></td>
-    <td><%= t[:osoba] %></td>
+    <td><%= t[:date_of_rent] %> do <%= t[:date_of_return] %></td>
+    <td><%= t[:price] %></td>
+    <td><%= t[:person] %></td>
   </tr>
   <% end %>
 </table>
 
-<%= link_to 'nowy termin', new_termin_path(:car_id => @car[:id]) %>
+<%= link_to 'nowy termin', new_term_path(:car_id => @car[:id]) %>

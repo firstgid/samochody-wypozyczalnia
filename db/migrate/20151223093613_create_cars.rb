@@ -1,9 +1,9 @@
 class CreateCars < ActiveRecord::Migration
   def change
     create_table :cars do |t|
-      t.string :nazwa
-      t.string :opis
-      t.string :klasa
+      t.string :name
+      t.string :description
+      t.string :car_class
 
       t.timestamps null: false
     end

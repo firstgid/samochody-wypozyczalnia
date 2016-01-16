@@ -3,9 +3,10 @@ require 'rails_helper'
 RSpec.describe Car, type: :model do
   describe "Car - valid values" do
     before do
-      @car = Car.new(nazwa: "fiat 126p", opis: "stary grat", klasa: "C")
-      @polonez = Car.new(nazwa: 'polonez', opis: "zailnstalowana instalacja gazowa",
-                         klasa: "B")
+      @car = Car.new(name: "fiat 126p", description: "stary grat", car_class: "C")
+      @polonez = Car.new(name: 'polonez',
+                         description: "zailnstalowana instalacja gazowa",
+                         car_class: "B")
     end
 
     it "car.count should be 1, after create" do
@@ -17,43 +18,49 @@ RSpec.describe Car, type: :model do
       expect(Car.count).to eq 0
     end
 
-    it "nazwa - present, uniqueness" do
-      @car.nazwa = ""
+    it "name - present, uniqueness" do
+      @car.name = ""
       expect(@car.valid?).to be false
 
-      @car.nazwa = @polonez.nazwa
+      @car.name = @polonez.name
       @car.save!
       expect(@polonez.valid?).to be false
     end
 
-    it "opis - present" do
-      @car.opis = ""
+    it "description - present" do
+      @car.description = ""
       expect(@car.valid?).to be false
+
+      @car.description = nil
+      expect(@car.valid?).to be false
+
+      @car.description = 'poduszka powietrzna'
+      expect(@car.valid?).to be true
     end
 
-    it "klasa - present. klasa - wrong/valid value" do
-      @car.klasa = ""
+    it "car_class - present. car_class - wrong/valid value" do
+      @car.car_class = ""
       expect(@car.valid?).to be false
 
-      @car.klasa = nil
+      @car.car_class = nil
       expect(@car.valid?).to be false
 
-      @car.klasa = "F"
+      @car.car_class = "F"
       expect(@car.valid?).to be false
 
-      @car.klasa = 'a'
+      @car.car_class = 'a'
       expect(@car.valid?).to be true
 
-      @car.klasa = 'A'
+      @car.car_class = 'A'
       expect(@car.valid?).to be true
 
-      @car.klasa = 'aAaaaabbbbbbbb'
+      @car.car_class = 'aAaaaabbbbbbbb'
       expect(@car.valid?).to be false
 
-      @car.klasa = 'b'
+      @car.car_class = 'b'
       expect(@car.save).to be true
 
-      expect(@car.klasa).to eq 'B'
+      expect(@car.car_class).to eq 'B'
     end
   end#describe
 end

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :cars
 
-  resources :termins, :only => [:new, :create, :destroy]
+  resources :terms, :only => [:new, :create, :destroy]
 
   get 'test' => 'static_page#test'
 

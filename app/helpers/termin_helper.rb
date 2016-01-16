@@ -1,2 +1,0 @@
-module TerminHelper
-end

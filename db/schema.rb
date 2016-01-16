@@ -11,28 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151225030532) do
+ActiveRecord::Schema.define(version: 20160115201418) do
 
   create_table "cars", force: :cascade do |t|
-    t.string   "nazwa"
-    t.string   "opis"
-    t.string   "klasa"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name"
+    t.string   "description"
+    t.string   "car_class"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "cars", ["nazwa"], name: "index_cars_on_nazwa", unique: true
+  add_index "cars", ["name"], name: "index_cars_on_name", unique: true
 
-  create_table "termins", force: :cascade do |t|
-    t.string   "osoba"
+  create_table "terms", force: :cascade do |t|
+    t.string   "person"
     t.integer  "car_id"
-    t.integer  "cena"
-    t.date     "data_wyp"
-    t.date     "data_odd"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "price"
+    t.date     "date_of_rent"
+    t.date     "date_of_return"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
-  add_index "termins", ["car_id"], name: "index_termins_on_car_id"
+  add_index "terms", ["car_id"], name: "index_terms_on_car_id"
 
 end

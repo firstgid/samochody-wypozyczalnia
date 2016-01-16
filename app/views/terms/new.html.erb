@@ -1,0 +1,30 @@
+<%= render :partial => 'layouts/flash' %>
+<% if @term.errors.any? %>
+  <ul class="error">
+  <% @term.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+  </ul>
+<% end %>
+
+<div id="tform">
+<%= form_for @term do |t| %>
+  <%= t.label :person, 'Osoba' %>
+  <%= t.text_field :person %>
+  <br/>
+
+  <%= t.hidden_field :car_id, :value => @id, :readonly => 'readonly' %>
+
+  <%= t.label :date_of_rent, 'Data wypożyczenia' %>
+  <%= t.date_field :date_of_rent %>
+  <br/>
+
+  <%= t.label :date_of_return, 'Data oddania' %>
+  <%= t.date_field :date_of_return %>
+  <br/>
+
+  <%= t.submit 'utwórz' %>
+<% end %>
+
+<%= link_to 'wróć', car_path(@id) %>
+</div><!-- /.tform -->

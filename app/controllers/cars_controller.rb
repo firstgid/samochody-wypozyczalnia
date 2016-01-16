@@ -5,7 +5,7 @@ class CarsController < ApplicationController
 
   def show
     @car = Car.find_by(:id => params[:id].to_i)
-    @termins = Termin.where(:car_id => @car[:id]).order :data_wyp
+    @terms = Term.where(:car_id => @car[:id]).order :date_of_rent
   end
 
   def new
@@ -44,7 +44,7 @@ class CarsController < ApplicationController
 
   private
     def get_params
-      params.require(:car).permit(:nazwa, :opis, :klasa)
+      params.require(:car).permit(:name, :description, :car_class)
     end
 
     def find_by_id

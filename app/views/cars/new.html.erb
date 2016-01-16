@@ -9,16 +9,16 @@
 <% end %>
 
 <%= form_for(@car) do |c| %>
-  <%= c.label :nazwa %>
-  <%= c.text_field :nazwa %>
+  <%= c.label :name, 'nazwa' %>
+  <%= c.text_field :name %>
   <br/>
 
-  <%= c.label :opis %>
-  <%= c.text_area :opis %>
+  <%= c.label :description %>
+  <%= c.text_area :description %>
   <br/>
 
-  <%= c.label :klasa %>
-  <%= c.text_field :klasa %>
+  <%= c.label :car_class, 'klasa' %>
+  <%= c.text_field :car_class %>
   <br/>
 
   <%= c.submit 'utwórz' %>

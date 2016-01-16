@@ -7,27 +7,30 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Car.create!([
-  {:nazwa => 'Fiat 126p', :opis => '15-letni maluch', :klasa => 'C'},
-  {:nazwa => 'Daewoo Matiz', :opis => 'pr. 2001, benzyna', :klasa => 'C'},
-  {:nazwa => 'Polonez Caro', :opis => 'posiada instalację gazową', :klasa => 'B'},
-  {:nazwa => 'Daewoo Lanos', :opis => 'pr. 2006, benzyna+LPG, pod. pow. dla kierowcy',
-                             :klasa => 'B'},
-  {:nazwa => 'Ford Mondeo', :opis => 'produkcja 2010r., diesel', :klasa => 'A'},
-  {:nazwa => 'Jeep Grand Cherokee', :opis => 'pr. 2004, diesel', :klasa => 'A'}
-
+  {:name => 'Fiat 126p', :description => '15-letni maluch', :car_class => 'C'},
+  {:name => 'Daewoo Matiz', :description => 'pr. 2001, benzyna',
+    :car_class => 'C'},
+  {:name => 'Polonez Caro', :description => 'posiada instalację gazową',
+   :car_class => 'B'},
+  {:name => 'Daewoo Lanos', :description => 'pr. 2006, benzyna+LPG, pod.pow."\
+   " dla kierowcy', :car_class => 'B'},
+  {:name => 'Ford Mondeo', :description => 'produkcja 2010r., diesel',
+   :car_class => 'A'},
+  {:name => 'Jeep Grand Cherokee', :description => 'pr. 2004, diesel',
+   :car_class => 'A'}
 ])
 
 maluch = Car.first
 
-maluch.termins.create!(:osoba => 'Monika Kowalska',
-                        :data_wyp => Date.current,
-                        :data_odd => Date.current.advance(days: 2))
+maluch.terms.create!(:person => 'Monika Kowalska',
+                        :date_of_rent => Date.current,
+                        :date_of_return => Date.current.advance(days: 2))
 
-maluch.termins.create!(:osoba => 'Tomasz Wicher',
-                      :data_wyp => Date.current.advance(days: 3),
-                      :data_odd => Date.current.advance(days: 6))
+maluch.terms.create!(:person => 'Tomasz Wicher',
+                      :date_of_rent => Date.current.advance(days: 3),
+                      :date_of_return => Date.current.advance(days: 6))
 
-Car.last.termins.create!(:osoba => 'Grzegorz Mnich',
-                         :data_wyp => Date.current,
-                         :data_odd => Date.tomorrow)
+Car.last.terms.create!(:person => 'Grzegorz Mnich',
+                         :date_of_rent => Date.current,
+                         :date_of_return => Date.tomorrow)
 

@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe CarsController, type: :controller do
 
   before do
-    @fpunto = Car.new(nazwa: 'fiat punto', opis: 'poduszka powietrzna dla kierowcy',
-                     klasa: 'B')
+    @fpunto = Car.new(name: 'fiat punto',
+                      description: 'poduszka powietrzna dla kierowcy',
+                      car_class: 'B')
     @fpunto.save!
   end
 

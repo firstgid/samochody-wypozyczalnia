@@ -2,22 +2,23 @@ require 'rails_helper'
 
 RSpec.feature "Cars", type: :feature do
   before do
-    @fpunto = Car.new(nazwa: 'fiat punto', opis: 'poduszka powietrzna dla kierowcy',
-                     klasa: 'B')
+    @fpunto = Car.new(name: 'fiat punto',
+                      description: 'poduszka powietrzna dla kierowcy',
+                      car_class: 'B')
   end
 
   describe "Car - new, create" do
     it "create Car with form - valid" do
       visit new_car_url
 
-      fill_in 'car_nazwa', :with => @fpunto.nazwa
-      fill_in 'car_opis', :with => @fpunto.opis
-      fill_in 'car_klasa', :with => @fpunto.klasa
+      fill_in 'car_name', :with => @fpunto.name
+      fill_in 'car_description', :with => @fpunto.description
+      fill_in 'car_car_class', :with => @fpunto.car_class
       click_button 'utwórz'
 
       expect(page.body).to have_content("dodanie nowego samochodu przebiegło pomyślnie")
-      expect(page.body).to have_content(@fpunto.nazwa)
-      expect(page.body).to have_content(@fpunto.opis)
+      expect(page.body).to have_content(@fpunto.name)
+      expect(page.body).to have_content(@fpunto.description)
     end
 
     it "create Car with form - invalid" do
@@ -25,9 +26,9 @@ RSpec.feature "Cars", type: :feature do
           "Opis can't be blank", "Klasa can't be blank", "Klasa is not included in the list"]
       visit new_car_url
 
-      fill_in 'car_nazwa', :with => ''
-      fill_in 'car_opis', :with => ''
-      fill_in 'car_klasa', :with => ''
+      fill_in 'car_name', :with => ''
+      fill_in 'car_description', :with => ''
+      fill_in 'car_car_class', :with => ''
       click_button 'utwórz'
 
       0.upto(4) do |i|
@@ -52,7 +53,7 @@ RSpec.feature "Cars", type: :feature do
       @fpunto.save!
       visit edit_car_url(1)
 
-      fill_in 'car_opis', :with => "pp dla kierowcy i pasażera"
+      fill_in 'car_description', :with => "pp dla kierowcy i pasażera"
       click_button 'edytuj'
 
       expect(current_url).to eq(car_url(1))
@@ -65,7 +66,7 @@ RSpec.feature "Cars", type: :feature do
 
       click_link 'usuń'
       expect(current_url).to eq(cars_url)
-      expect(page.body).to_not have_content(@fpunto.nazwa)
+      expect(page.body).to_not have_content(@fpunto.name)
     end
   end
 end
